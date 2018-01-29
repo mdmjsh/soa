@@ -1,0 +1,2 @@
+from mightyMooc import app
+

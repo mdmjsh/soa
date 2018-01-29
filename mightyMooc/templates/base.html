@@ -1,0 +1,36 @@
+<html>
+    <head>
+        {% if title %}
+        <title>{{ title }} - MightyMooC</title>
+        {% else %}
+        <title>MightyMooC</title>
+        {% endif %}
+    </head>
+    <body>
+        <div>
+            MightyMooC:
+            <a href="{{ url_for('index') }}">Home</a>
+            
+            <!-- The is_anonymous property is one of the attributes that Flask-Login adds to user objects through the UserMixin class. The current_user.is_anonymous expression is going to be True 
+            only when the user is not logged in. -->            
+            
+            {% if current_user.is_anonymous %}
+            <a href="{{ url_for('login') }}">Login</a>
+            {% else %}
+            <a href="{{ url_for('user', username=current_user.username) }}">Profile</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
+            {% endif %}
+        </div>
+        <hr>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </body>
+</html>
