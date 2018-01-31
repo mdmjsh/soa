@@ -16,12 +16,13 @@ def many_to_many_relationship(join_object, parent, child):
     '''
     parent_id = '{}_id'.format(parent)
     child_id = '{}_id'.format(child)
+    primary_join = 'join_object.c.{}'.format(parent_id)
+    secondary_join = 'join_object.c.{}'.format(child_id)
     return db.relationship(
         child, secondary=join_object,
-        primaryjoin=(join_object.c.parent_id == id),
-        secondaryjoin=(join_object.c.child_id == id),
+        primaryjoin=(primary_join == id),
+        secondaryjoin=(secondary_join == id),
     backref=db.backref(parent, lazy='dynamic'), lazy='dynamic')
-
 
 ################ MANY TO MANY RELATIONSHIP OBJECTS ######################
 institution_users=db.Table('institution_users',
@@ -92,24 +93,13 @@ class Institution(db.Model):
     created_at = db.Column(db.DateTime)
     updated_up = db.Column(db.DateTime)
     deleted_at = db.Column(db.DateTime)
-    
+
     # institution_users relational table
     users = many_to_many_relationship(institution_users, 'institution', 'user')
-
-    # db.relationship(
-    #     'User', secondary=institution_users,
-    #     primaryjoin=(institution_users.c.institution_id == id),
-    #     secondaryjoin=(institution_users.c.user_id == id),
-    # backref=db.backref('institution', lazy='dynamic'), lazy='dynamic')
-
+    
     # institution_modules relational table
     modules = many_to_many_relationship(institution_modules, 'institution', 'module')
 
-    # modules = db.relationship(
-    #     'Module', secondary=institution_modules,
-    #     primaryjoin=(institution_modules.c.institution_id == id),
-    #     secondaryjoin=(institution_modules.c.module_id == id),
-    # backref=db.backref('institution', lazy='dynamic'), lazy='dynamic')
 
 
 class Module(db.Model):
