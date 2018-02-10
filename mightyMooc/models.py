@@ -5,8 +5,22 @@ from flask_login import UserMixin
 from hashlib import md5
 
 
+class Models():
+    def __init__():
+        pass
+
+
+# wip
 def many_to_many_relationship(join_object, parent, child):
     '''
+    wip - need to get the primaryjoin |secondaryjoin= lines working 
+    as per this example: 
+
+        # exec("row.{} = kwargs['{}']".format(key))
+
+            primaryjoin=(followers.c.follower_id == id),
+            secondaryjoin=(followers.c.followed_id == id),
+
     to be called from the parent table to build a m-m relationship
 
     :param: join_object - db.table object 
@@ -14,14 +28,15 @@ def many_to_many_relationship(join_object, parent, child):
     :param: child(str) - name of the child table
     :returns: a many to many relationship to the parent table
     '''
-    parent_id = '{}_id'.format(parent)
-    child_id = '{}_id'.format(child)
-    primary_join = 'join_object.c.{}'.format(parent_id)
-    secondary_join = 'join_object.c.{}'.format(child_id)
+    parent_id = '{}_id'.format(parent[:-1])
+    child_id = '{}_id'.format(child[:-1])
+
+    primary_join = (eval('join_object.c.{}'.format(parent_id)))
+    secondary_join = (eval('join_object.c.{}'.format(child_id)))
     return db.relationship(
         child, secondary=join_object,
-        primaryjoin=(primary_join == id),
-        secondaryjoin=(secondary_join == id),
+        primaryjoin=('{}==id'.format(primary_join)),
+        secondaryjoin=('{}==id'.format(secondary_join)),
     backref=db.backref(parent, lazy='dynamic'), lazy='dynamic')
 
 ################ MANY TO MANY RELATIONSHIP OBJECTS ######################
@@ -71,10 +86,13 @@ class User(UserMixin, db.Model):
     updated_up = db.Column(db.DateTime)
     deleted_at = db.Column(db.DateTime)
     last_sign_in = db.Column(db.DateTime)
-    last_sign_in = db.Column(db.DateTime)
     user_type = db.Column(db.String(32))
-    modules = many_to_many_relationship(user_modules, 'user', 'module')
+    modules = db.relationship('Module', secondary=user_modules,
+        primaryjoin=(user_modules.c.user_id == id),
+        secondaryjoin=(user_modules.c.module_id == id),
+        backref=db.backref('users', lazy='dynamic'), lazy='dynamic')
 
+    # modules = many_to_many_relationship(user_modules, 'users', 'modules')
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -94,12 +112,15 @@ class Institution(db.Model):
     updated_up = db.Column(db.DateTime)
     deleted_at = db.Column(db.DateTime)
 
-    # institution_users relational table
-    users = many_to_many_relationship(institution_users, 'institution', 'user')
+    modules = db.relationship('Module', secondary=institution_modules,
+        primaryjoin=(institution_modules.c.institution_id == id),
+        secondaryjoin=(institution_modules.c.module_id == id),
+        backref=db.backref('institutions', lazy='dynamic'), lazy='dynamic')
     
-    # institution_modules relational table
-    modules = many_to_many_relationship(institution_modules, 'institution', 'module')
-
+    users = db.relationship('User', secondary=institution_users,
+        primaryjoin=(institution_users.c.institution_id == id),
+        secondaryjoin=(institution_users.c.user_id == id),
+        backref=db.backref('institutions', lazy='dynamic'), lazy='dynamic')
 
 
 class Module(db.Model):
@@ -108,7 +129,10 @@ class Module(db.Model):
     created_at = db.Column(db.DateTime)
     updated_up = db.Column(db.DateTime)
     deleted_at = db.Column(db.DateTime)
-    categories = many_to_many_relationship(module_categories, 'module', 'category')
+    categories = db.relationship('Category', secondary=module_categories,
+        primaryjoin=(module_categories.c.module_id == id),
+        secondaryjoin=(module_categories.c.category_id == id),
+        backref=db.backref('modules', lazy='dynamic'), lazy='dynamic')
 
 
 class Category(db.Model):
@@ -125,9 +149,16 @@ class Course(db.Model):
     created_at = db.Column(db.DateTime)
     updated_up = db.Column(db.DateTime)
     deleted_at = db.Column(db.DateTime)
-    institutions = many_to_many_relationship(course_institutions, 'course', 'institution')
-    modules= many_to_many_relationship(course_modules, 'course', 'module')
+    institutions = db.relationship('Institution', secondary=course_institutions,
+        primaryjoin=(course_institutions.c.course_id == id),
+        secondaryjoin=(course_institutions.c.institution_id == id),
+        backref=db.backref('courses', lazy='dynamic'), lazy='dynamic')
 
+
+    modules = db.relationship('Module', secondary=course_modules,
+        primaryjoin=(course_modules.c.course_id == id),
+        secondaryjoin=(course_modules.c.module_id == id),
+        backref=db.backref('courses', lazy='dynamic'), lazy='dynamic')
 
 
 @login.user_loader
