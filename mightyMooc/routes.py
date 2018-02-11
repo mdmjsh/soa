@@ -4,8 +4,8 @@ In Flask, handlers for the application routes are written as Python functions, c
 View functions are mapped to one or more route URLs so that Flask knows what logic to execute when a client requests a given URL.
 
 
- A common pattern with decorators is to use them to register functions as callbacks for certain events. 
- In this case, the @app.route decorator creates an association between the URL given as an argument and the function. 
+A common pattern with decorators is to use them to register functions as callbacks for certain events. 
+In this case, the @app.route decorator creates an association between the URL given as an argument and the function. 
 In this example there are two decorators, which associate the URLs / and /index to this function.
 
 
@@ -77,10 +77,10 @@ def register():
 		return redirect(url_for('login'))
 	return render_template('register.html', title='Register', form=form)
 
-@app.route('/user/<username>')
+@app.route('/user/<id>')
 @login_required
-def user(username):
-	user = User.query.filter_by(username=username).first_or_404()
+def user(id):
+	user = self.get_id(id)
 	posts = [
 		{'author': user, 'body': 'Test post #1'},
 		{'author': user, 'body': 'Test post #2'},

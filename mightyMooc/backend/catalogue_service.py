@@ -2,9 +2,11 @@
 from flask_restful_swagger import swagger
 
 from mightyMooc import app, db
-from mightyMooc.models import Course, User 
+from mightyMooc.models import Course, User, Module, Institution 
 from mightyMooc.backend.base_service import BaseService
 
 class CatalogueService(BaseService):
-	''' A service which retrieves hands items in the content catologue
-	'''	
+  def __init__(self):
+    self.model = 'User'
+    self.db_module = self.dyanmic_module()
+    super(User)

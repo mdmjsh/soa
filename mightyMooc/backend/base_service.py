@@ -9,8 +9,7 @@ import ipdb
 
 class BaseService(object):
 
-	def __init__(self, model):
-		self.model = model
+	def __init__(self):
 		self.db_module = self.dyanmic_module()
 
 # # # HELPER METHODS  # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
@@ -51,7 +50,6 @@ class BaseService(object):
 		row = self.get_by_id(id)
 		kwargs['updated_at'] = datetime.now()
 		for key, value in kwargs.items():
-			ipdb.set_trace()
 			setattr(row, key, value)
 		db.session.commit()
 

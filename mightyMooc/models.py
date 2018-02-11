@@ -31,12 +31,12 @@ def many_to_many_relationship(join_object, parent, child):
     parent_id = '{}_id'.format(parent[:-1])
     child_id = '{}_id'.format(child[:-1])
 
-    primary_join = (eval('join_object.c.{}'.format(parent_id)))
-    secondary_join = (eval('join_object.c.{}'.format(child_id)))
+    primary_join = ('join_object.c.{}'.format(parent_id))
+    secondary_join = ('join_object.c.{}'.format(child_id))
     return db.relationship(
         child, secondary=join_object,
-        primaryjoin=('{}==id'.format(primary_join)),
-        secondaryjoin=('{}==id'.format(secondary_join)),
+        primaryjoin=('{}==id'.format(eval(primary_join))),
+        secondaryjoin=('{}==id'.format(eval(secondary_join))),
     backref=db.backref(parent, lazy='dynamic'), lazy='dynamic')
 
 ################ MANY TO MANY RELATIONSHIP OBJECTS ######################
