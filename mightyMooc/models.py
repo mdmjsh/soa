@@ -6,9 +6,11 @@ from hashlib import md5
 
 
 class Models():
-    def __init__():
-        pass
+    def __init__(self):
+        self.taxonomy = set()
 
+    def build_taxonomy(self, tablename):
+        self.taxonomy.add(tablename)
 
 # wip
 def many_to_many_relationship(join_object, parent, child):
@@ -45,9 +47,9 @@ institution_users=db.Table('institution_users',
     db.Column('user_id', db.Integer, db.ForeignKey('user.id'))
         )
 
-institution_modules=db.Table('institution_modules',
-    db.Column('institution_id', db.Integer, db.ForeignKey('institution.id')),
-    db.Column('module_id', db.Integer, db.ForeignKey('module.id'))
+module_institutions=db.Table('module_institutions',
+    db.Column('module_id', db.Integer, db.ForeignKey('module.id')),
+    db.Column('institution_id', db.Integer, db.ForeignKey('institution.id'))
         )
 
 module_categories=db.Table('module_categories',
@@ -80,6 +82,8 @@ user_courses=db.Table('user_courses',
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
+    firstname = db.Column(db.String(64))
+    lastname = db.Column(db.String(64))
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     created_at = db.Column(db.DateTime)
@@ -104,18 +108,12 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
 
-
 class Institution(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name =  db.Column(db.String(64), index=True, unique=True)
     created_at = db.Column(db.DateTime)
     updated_up = db.Column(db.DateTime)
     deleted_at = db.Column(db.DateTime)
-
-    modules = db.relationship('Module', secondary=institution_modules,
-        primaryjoin=(institution_modules.c.institution_id == id),
-        secondaryjoin=(institution_modules.c.module_id == id),
-        backref=db.backref('institutions', lazy='dynamic'), lazy='dynamic')
     
     users = db.relationship('User', secondary=institution_users,
         primaryjoin=(institution_users.c.institution_id == id),
@@ -125,13 +123,18 @@ class Institution(db.Model):
 
 class Module(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name =  db.Column(db.String(64), index=True, unique=True)
+    name =  db.Column(db.String(64), index=True)
     created_at = db.Column(db.DateTime)
     updated_up = db.Column(db.DateTime)
     deleted_at = db.Column(db.DateTime)
     categories = db.relationship('Category', secondary=module_categories,
         primaryjoin=(module_categories.c.module_id == id),
         secondaryjoin=(module_categories.c.category_id == id),
+        backref=db.backref('modules', lazy='dynamic'), lazy='dynamic')
+
+    institutions = db.relationship('Institution', secondary=module_institutions,
+        primaryjoin=(module_institutions.c.module_id == id),
+        secondaryjoin=(module_institutions.c.institution_id == id),
         backref=db.backref('modules', lazy='dynamic'), lazy='dynamic')
 
 
@@ -164,3 +167,4 @@ class Course(db.Model):
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
+

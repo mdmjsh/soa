@@ -2,11 +2,12 @@
 from flask_restful_swagger import swagger
 
 from mightyMooc import app, db
-from mightyMooc.models import Course, User, Module, Institution 
-from mightyMooc.backend.base_service import BaseService
+from mightyMooc.backend.module_service import ModuleService
+from mightyMooc.backend.institution_service import InstitutionService
 
-class CatalogueService(BaseService):
+class CatalogueService():
   def __init__(self):
-    self.model = 'User'
-    self.db_module = self.dyanmic_module()
-    super(User)
+  	self.module_service = ModuleService()
+  	self.institution_service = InstitutionService()
+
+

@@ -1,11 +1,8 @@
 from mightyMooc import app, db
 from mightyMooc.backend.base_service import BaseService
 
-class ModuleService(BaseService):
+class CourseService(BaseService):
 	def __init__(self):
-		self.model = 'Module'
+		self.model = 'Course'
 		self.db_module = self.dyanmic_module()
-		super(ModuleService)
-
-
-			
+		super(CourseService)

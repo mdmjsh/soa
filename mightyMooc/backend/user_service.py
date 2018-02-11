@@ -8,5 +8,5 @@ class UserService(BaseService):
 	def __init__(self):
 		self.model = 'User'
 		self.db_module = self.dyanmic_module()
-		super(User)
+		super(UserService)
 
