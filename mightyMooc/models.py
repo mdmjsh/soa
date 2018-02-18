@@ -4,6 +4,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from hashlib import md5
 
+'''
+flask db stamp head - mark all migrations as up to date
+'''
 
 class Models():
     def __init__(self):
@@ -52,9 +55,9 @@ module_institutions=db.Table('module_institutions',
     db.Column('institution_id', db.Integer, db.ForeignKey('institution.id'))
         )
 
-module_categories=db.Table('module_categories',
+module_tags=db.Table('module_tags',
     db.Column('module_id', db.Integer, db.ForeignKey('module.id')),
-    db.Column('category_id', db.Integer, db.ForeignKey('category.id'))
+    db.Column('tag_id', db.Integer, db.ForeignKey('tag.id'))
         )
 
 course_modules=db.Table('course_modules',
@@ -127,18 +130,19 @@ class Module(db.Model):
     created_at = db.Column(db.DateTime)
     updated_up = db.Column(db.DateTime)
     deleted_at = db.Column(db.DateTime)
-    categories = db.relationship('Category', secondary=module_categories,
-        primaryjoin=(module_categories.c.module_id == id),
-        secondaryjoin=(module_categories.c.category_id == id),
+    description = db.Column(db.Text)
+    tags = db.relationship('Tag', secondary=module_tags,
+        # primaryjoin=(module_categories.c.module_id == id),
+        # secondaryjoin=(module_categories.c.category_id == id),
         backref=db.backref('modules', lazy='dynamic'), lazy='dynamic')
 
     institutions = db.relationship('Institution', secondary=module_institutions,
-        primaryjoin=(module_institutions.c.module_id == id),
-        secondaryjoin=(module_institutions.c.institution_id == id),
+        # primaryjoin=(module_institutions.c.module_id == id),
+        # secondaryjoin=(module_institutions.c.institution_id == id),
         backref=db.backref('modules', lazy='dynamic'), lazy='dynamic')
 
 
-class Category(db.Model):
+class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name =  db.Column(db.String(64), index=True, unique=True)
     created_at = db.Column(db.DateTime)
@@ -149,19 +153,23 @@ class Category(db.Model):
 class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name =  db.Column(db.String(64), index=True, unique=True)
+    description = db.Column(db.Text)
+    level = db.Column(db.String(64))
     created_at = db.Column(db.DateTime)
     updated_up = db.Column(db.DateTime)
     deleted_at = db.Column(db.DateTime)
     institutions = db.relationship('Institution', secondary=course_institutions,
-        primaryjoin=(course_institutions.c.course_id == id),
-        secondaryjoin=(course_institutions.c.institution_id == id),
+        # primaryjoin=(course_institutions.c.course_id == id),
+        # secondaryjoin=(course_institutions.c.institution_id == id),
         backref=db.backref('courses', lazy='dynamic'), lazy='dynamic')
-
 
     modules = db.relationship('Module', secondary=course_modules,
-        primaryjoin=(course_modules.c.course_id == id),
-        secondaryjoin=(course_modules.c.module_id == id),
+        # Commented out as hitting sqlalchemy.orm.exc.UnmappedColumnError on insert
+        # primaryjoin=(course_modules.c.course_id == id),  
+        # secondaryjoin=(course_modules.c.module_id == id),
         backref=db.backref('courses', lazy='dynamic'), lazy='dynamic')
+
+
 
 
 @login.user_loader
