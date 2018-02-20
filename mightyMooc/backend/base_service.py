@@ -60,7 +60,6 @@ class BaseService():
             db.session.commit()
             return self.get_raw(**kwargs)[0]
         except exc.IntegrityError as e:
-            ipdb.set_trace()
             db.session.rollback()
             print('IntegrityError')
 
@@ -96,8 +95,16 @@ class BaseService():
         db.session.delete(row)
 
 
-
-
+    def add_children(self, parent, children, relationship):
+        ''' Wrapper for adding data into M-2-M tables 
+        :param: parent(object) - mightyMooc model response
+        :param: child(list) - list of strings of child records to join, e.g. ['oxford', 'cambridge'] 
+        :param: relationship:(str) - name of the relationship, e.g. 'tags'
+        '''
+        for child in children: 
+            # setattr(parent, relationship, child)
+            exec('{}.{}.append({})'.format(parent, relationship, child))
+        db.session.commit()
 
 
 

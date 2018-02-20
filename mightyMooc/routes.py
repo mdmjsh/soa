@@ -1,4 +1,5 @@
-from flask import request, current_app
+import ipdb
+from flask import request, current_app, jsonify
 
 from webargs import fields
 from webargs.flaskparser import use_args
@@ -6,8 +7,8 @@ from webargs.flaskparser import use_args
 from mightyMooc import app, db
 from mightyMooc.backend.catalogue_service import CatalogueService
 from mightyMooc.backend.module_service import ModuleService
-import ipdb
-
+from mightyMooc.backend.course_service import CourseService
+from mightyMooc.backend.institution_service import InstitutionService
 
 # @app.route('/catalogue')
 # def catalogue():
@@ -17,27 +18,61 @@ import ipdb
 #     'name': fields.Str(required=False)
 # }
 
+SERVICE_ROUTER = {
+    'module': ModuleService(),
+    'course': CourseService()
+}
+
+catalogue_service = CatalogueService()
+module_service= ModuleService()
+institution_service= InstitutionService()
+
 @app.route('/module')
 def module():
-	if request.args:
-		kwargs = request.args.to_dict()
-		return ModuleService().get(**kwargs)
-	else: 
-		return ModuleService().get()
+    if request.args:
+        kwargs = request.args.to_dict()
+        return ModuleService().get(**kwargs)
+    else: 
+        return ModuleService().get()
 
-@app.route('/mightymooc/catalogue/addmodule', methods=['POST'])
-def add_module(uuid):
-    content = request.json
-    print(content['mytext'])
-    return jsonify({"uuid":uuid})
 
-# curl -H "Content-Type: application/json" -X POST -d '{"name":"xyz","description":"xyz"}' http://localhost:5000//mightymooc/catalogue/addmodule
+@app.route('/catalogue', methods=['GET'])
+def catalogue():
+    if request.args:
+        kwargs = request.args.to_dict()
+        return jsonify(CatalogueService().get(**kwargs))
+    else: 
+        pass  # This should fetch everything
 
-# @app.route('/mightymooc/catalogue')
-# def catalogue():
-# 	if request.args:
-# 		kwargs = request.args
-# 		return CatalogueService().get(**kwargs)
-# 	else: 
-# 		return CatalogueService().get()
+
+@app.route('/catalogue/tags/<string:tag>', methods=['GET'])
+def get_by_tag(tag):
+    return jsonify(catalogue_service.get_tags(tag))
+
+@app.route('/catalogue/institutions/<string:institution>', methods=['GET'])
+def get_by_institution(institution):
+    return jsonify(catalogue_service.get_institutions(institution))
+
+
+@app.route('/catalogue/<string:type>/<int:id>', methods=['GET'])
+def get_by_id(type, id):
+    ipdb.set_trace()
+    kwargs = request.args.to_dict()
+    return jsonify(catalogue_service.get_by_id(**kwargs))
+
+
+@app.route('/catalogue/add', methods=['POST'])
+def add_content():
+    request_data = request.get_json()
+    service = SERVICE_ROUTER.get(request_data.get('type'))
+    institutions = [institution_service.get_by_id_raw(request_data['institution_id'])]
+    del(request_data['type'])
+    del(request_data['institution_id'])
+    result = service.create(**request_data) # NO EXCEPTION HANDLING
+    service.add_many_to_many(result, institutions, 'institutions')
+    return jsonify({'message': 'data added successfully', 'data': request_data, 'status': 200})
+
+# curl -H "Content-type: application/json" \
+# -X POST 'http://127.0.0.1:5000/catalogue/add' -d '{"message":"Hello Data"}'
+
 

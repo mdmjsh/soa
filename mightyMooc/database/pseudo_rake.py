@@ -83,9 +83,6 @@ if __name__ == '__main__':
 		meta = MetaData()
 		meta.reflect(engine)
 		destroy(engine, meta)
-		# delete()
 		migrate()
 		seed()
 		print('Done')
-	# else: 
-	# 	print('No way son!')
