@@ -15,7 +15,7 @@ class BaseService():
     def __init__(self):
         self.db_module = self.dyanmic_module()
 
-# # # HELPER METHODS  # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+# # # # # # # # # # HELPER METHODS # # # # # # # # # # # # # # # # # # # # # 
 
     def dyanmic_module(self):
         ''' Dynmically load the relevant class from mightMooc.models 
@@ -26,8 +26,8 @@ class BaseService():
 
 
     def print_kwargs(self, method, kwargs):
-        print ('{} {} object with data: {}'.format(method, self.db_module, ','.join(
-            ['{}: {}'.format(k, v) for k, v in kwargs.items()])))
+        print ('{} {} object with data: {}'.format(method, self.db_module, ','
+            .join(['{}: {}'.format(k, v) for k, v in kwargs.items()])))
 
     def __len__(self):
         return len(self.get())
@@ -41,7 +41,8 @@ class BaseService():
         REMOVE_KEYS = ['_sa_instance_state', 'deleted_at']
         results = []
         for result_set in self.results:
-            result_dict = copy.copy(vars(result_set)) #  Need to make a copy as we are muting and iterating
+            #  Make a copy as we are muting and iterating
+            result_dict = copy.copy(vars(result_set)) 
             for remove_key in REMOVE_KEYS:
                 del result_dict[remove_key] 
             result_dict['created_at'] = str(result_dict['created_at'])
@@ -50,7 +51,7 @@ class BaseService():
         # results.append({'total': len(result_dict) if result_dict else 0})
         return results
 
-# # # CRUD METHODS # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+# # # CRUD METHODS # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
     
     def create(self, **kwargs):
         kwargs['created_at'] = datetime.now()
@@ -65,7 +66,8 @@ class BaseService():
 
     def get(self, **kwargs):        
         self.results = self.db_module.query.filter_by(**kwargs).all() 
-        return make_response(jsonify({"status": "ok", "data": self.to_results()}), 200)
+        return make_response(jsonify({"status": "ok", "data": 
+            self.to_results()}), 200)
 
     def get_raw(self, **kwargs):
         ''' Returns raw data db level data not jsonified
@@ -94,17 +96,6 @@ class BaseService():
         User.query.filter(User.id == id).delete()
         db.session.delete(row)
 
-
-    def add_children(self, parent, children, relationship):
-        ''' Wrapper for adding data into M-2-M tables 
-        :param: parent(object) - mightyMooc model response
-        :param: child(list) - list of strings of child records to join, e.g. ['oxford', 'cambridge'] 
-        :param: relationship:(str) - name of the relationship, e.g. 'tags'
-        '''
-        for child in children: 
-            # setattr(parent, relationship, child)
-            exec('{}.{}.append({})'.format(parent, relationship, child))
-        db.session.commit()
 
 
 

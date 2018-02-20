@@ -63,16 +63,36 @@ def get_by_id(type, id):
 
 @app.route('/catalogue/add', methods=['POST'])
 def add_content():
+    ''' Used to add a new module or course to the catalogue
+    '''
     request_data = request.get_json()
     service = SERVICE_ROUTER.get(request_data.get('type'))
-    institutions = [institution_service.get_by_id_raw(request_data['institution_id'])]
+    institutions = [institution_service.get_by_id_raw(request_data[
+        'institution_id'])]
     del(request_data['type'])
     del(request_data['institution_id'])
     result = service.create(**request_data) # NO EXCEPTION HANDLING
     service.add_many_to_many(result, institutions, 'institutions')
-    return jsonify({'message': 'data added successfully', 'data': request_data, 'status': 200})
+    return jsonify({'message': 'data added successfully', 'data': request_data,
+     'status': 200})
 
-# curl -H "Content-type: application/json" \
-# -X POST 'http://127.0.0.1:5000/catalogue/add' -d '{"message":"Hello Data"}'
+
+@app.route('/catalogue/enrole/<int:user_id>/<int:content_id>/<string:type>', 
+    methods=['GET', 'POST'])
+def enrolement(user_id, content_id, type):
+    '''  Used to enrole a user on a module or course
+        :param: content_id - maps to a module or course depending on type param
+        :param: type - string - 'module' or 'course' 
+    '''
+    service = SERVICE_ROUTER.get(type)
+    service.enrole(user_id, content_id)
+
+
+
+
+
+
+
+
 
 

@@ -95,8 +95,8 @@ class User(UserMixin, db.Model):
     last_sign_in = db.Column(db.DateTime)
     user_type = db.Column(db.String(32))
     modules = db.relationship('Module', secondary=user_modules,
-        primaryjoin=(user_modules.c.user_id == id),
-        secondaryjoin=(user_modules.c.module_id == id),
+        # primaryjoin=(user_modules.c.user_id == id),
+        # secondaryjoin=(user_modules.c.module_id == id),
         backref=db.backref('users', lazy='dynamic'), lazy='dynamic')
 
     # modules = many_to_many_relationship(user_modules, 'users', 'modules')
@@ -119,8 +119,8 @@ class Institution(db.Model):
     deleted_at = db.Column(db.DateTime)
     
     users = db.relationship('User', secondary=institution_users,
-        primaryjoin=(institution_users.c.institution_id == id),
-        secondaryjoin=(institution_users.c.user_id == id),
+        # primaryjoin=(institution_users.c.institution_id == id),
+        # secondaryjoin=(institution_users.c.user_id == id),
         backref=db.backref('institutions', lazy='dynamic'), lazy='dynamic')
 
 
