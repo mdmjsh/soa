@@ -30,9 +30,14 @@ class ModuleService(BaseService):
         ''' enrole a user to a module
             :param: module_ids - list of ids
         '''
-        ipdb.set_trace()
         user = user_service.get_by_id_raw(user_id)
-        modules = (self.get_by_id_raw(m_id) for m_id in module_ids)
+        modules = set()
+        for m_id in set(module_ids): 
+            modules.add(self.get_by_id_raw(m_id))
         user.modules.extend(modules)
-        db.session.commit()
-
+        module_names = [module.name for module in user.modules]
+        try:
+            db.session.commit()
+            return {'username': user.username, 'modules': module_names}
+        except: 
+            db.session.rollback()

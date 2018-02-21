@@ -98,6 +98,10 @@ class User(UserMixin, db.Model):
         # primaryjoin=(user_modules.c.user_id == id),
         # secondaryjoin=(user_modules.c.module_id == id),
         backref=db.backref('users', lazy='dynamic'), lazy='dynamic')
+    courses = db.relationship('Course', secondary=user_courses,
+        # primaryjoin=(user_modules.c.user_id == id),
+        # secondaryjoin=(user_modules.c.module_id == id),
+        backref=db.backref('users', lazy='dynamic'), lazy='dynamic')
 
     # modules = many_to_many_relationship(user_modules, 'users', 'modules')
 
@@ -117,7 +121,6 @@ class Institution(db.Model):
     created_at = db.Column(db.DateTime)
     updated_up = db.Column(db.DateTime)
     deleted_at = db.Column(db.DateTime)
-    
     users = db.relationship('User', secondary=institution_users,
         # primaryjoin=(institution_users.c.institution_id == id),
         # secondaryjoin=(institution_users.c.user_id == id),
@@ -164,7 +167,7 @@ class Course(db.Model):
         backref=db.backref('courses', lazy='dynamic'), lazy='dynamic')
 
     modules = db.relationship('Module', secondary=course_modules,
-        # Commented out as hitting sqlalchemy.orm.exc.UnmappedColumnError on insert
+        # Commented out as 'sqlalchemy.orm.exc.UnmappedColumnError' on insert
         # primaryjoin=(course_modules.c.course_id == id),  
         # secondaryjoin=(course_modules.c.module_id == id),
         backref=db.backref('courses', lazy='dynamic'), lazy='dynamic')
