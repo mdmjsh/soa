@@ -78,7 +78,7 @@ def add_content():
 
 
 @app.route('/catalogue/enrole', 
-    methods=['GET', 'POST'])
+    methods=['POST'])
 def enrolement():
     '''  Used to enrole a user on a module or course
         :param: content_id - maps to a module or course depending on type param
@@ -86,9 +86,14 @@ def enrolement():
     '''
     request_data = request.get_json()
     service = SERVICE_ROUTER.get(request_data.get('type'))
-    response = service.enrole(request_data['user_id'], request_data['content_ids'])
+    response = service.enrole(request_data['user_id'], 
+        request_data['content_ids'])
     return jsonify({'message': 'data added successfully', 'data': response,
      'status': 200})
+
+
+
+
 
 
 

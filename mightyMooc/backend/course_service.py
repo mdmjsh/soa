@@ -42,15 +42,16 @@ class CourseService(BaseService):
         module_ids = [module.id for module in course.modules]
         user.courses.append(course)
         module_service.enrole(user_id, module_ids)
-        # try:
-        db.session.commit()
-        return self.build_courses_json(user, course)
-        # except: 
-        #     db.session.rollback()
+        try:
+            db.session.commit()
+            return self.build_courses_json(user, course)
+        except: 
+            db.session.rollback()
+            return {'status': 500, 'message': 'Something went wrong'}
 
 
     def build_courses_json(self, user, course):
-        ''' Used to construct JSON return 
+        ''' Used to construct JSON reponse 
             :param: user - mightyMooC models object 
             :param: course - mightyMooC models object 
         '''

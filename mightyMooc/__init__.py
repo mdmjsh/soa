@@ -3,9 +3,12 @@ from config import Config
 from flask_migrate import Migrate
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
+from flask_rbac import RBAC
 
 app = Flask(__name__)
+# rbac = RBAC(app)
 app.config.from_object(Config)
+
 with app.app_context():
 	print(current_app.name)
 	db = SQLAlchemy(app)
