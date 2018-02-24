@@ -5,38 +5,25 @@ from webargs import fields
 from webargs.flaskparser import use_args
 
 from mightyMooc import app, db
-from mightyMooc.backend.catalogue_service import CatalogueService
 from mightyMooc.backend.module_service import ModuleService
 from mightyMooc.backend.course_service import CourseService
 from mightyMooc.backend.institution_service import InstitutionService
+from mightyMooc.backend.user_service import UserService
 
-
-SERVICE_ROUTER = {
-    'module': ModuleService(),
-    'course': CourseService()
-}
-
-catalogue_service = CatalogueService()
+course_service = CourseService()
 module_service= ModuleService()
 institution_service= InstitutionService()
+user_service= UserService()
 
-@app.route('/module')
-def module():
-    if request.args:
-        kwargs = request.args.to_dict()
-        return module_service.get(**kwargs)
-    else: 
-        return module_service.get()
-
-@app.route('/institution/<string:name>', methods=['GET'])
-def institution(name):
-    return jsonify(institution_service.get_courses_and_modules(name))
-
+SERVICE_ROUTER = {
+    'module': module_service,
+    'course': course_service
+}
 
 @app.route('/catalogue', methods=['GET'])
 def catalogue():
     kwargs = request.args.to_dict()
-    return catalogue_service.get(**kwargs)
+    return jsonify(catalogue_service.get(**kwargs))
 
 
 @app.route('/catalogue/tags/<string:tag>', methods=['GET'])
@@ -50,8 +37,7 @@ def get_by_institution(institution):
 
 @app.route('/catalogue/<string:type>/<int:id>', methods=['GET'])
 def get_by_id(type, id):
-    kwargs = request.args.to_dict()
-    return jsonify(catalogue_service.get_by_id(**kwargs))
+    return jsonify(catalogue_service.get_by_id(**{'type': type, 'id': id}))
 
 
 @app.route('/catalogue/add', methods=['POST'])
@@ -62,24 +48,24 @@ def add_content():
     service = SERVICE_ROUTER.get(request_data.get('type'))
     institutions = [institution_service.get_by_id_raw(request_data[
         'institution_id'])]
+    ipdb.set_trace()
     del(request_data['type'])
     del(request_data['institution_id'])
-    result = service.create(**request_data) # NO EXCEPTION HANDLING
+    result = service.create(**request_data)
     service.add_many_to_many(result, institutions, 'institutions')
     return jsonify({'message': 'data added successfully', 'data': request_data,
      'status': 200})
 
 
-@app.route('/catalogue/<string:type>/<int:id>/<int:institution_id>', 
-    methods=['DELETE'])
-def soft_delete(type, id, institution_id):
-    ''' 
-    '''
-    service.soft_delete(type, id, institution_id)
+# @app.route('/catalogue/<string:type>/<int:id>/<int:institution_id>', 
+#     methods=['DELETE'])
+# def soft_delete(type, id, institution_id):
+#     ''' 
+#     '''
+#     service.soft_delete(type, id, institution_id)
 
 
-@app.route('/catalogue/enrole', 
-    methods=['POST'])
+@app.route('/catalogue/enrole', methods=['POST'])
 def enrolement():
     '''  Used to enrole a user on a module or course
         :param: content_id - maps to a module or course depending on type param
@@ -92,7 +78,11 @@ def enrolement():
     return jsonify({'message': 'data added successfully', 'data': response,
      'status': 200})
 
-
+@app.route('/catalogue/students/<int:id>', methods=['GET'])
+def student(id):
+    ''' Fetch a users enrolements 
+    '''
+    return jsonify(user_service.get_by_id(id))
 
 
 

@@ -12,18 +12,21 @@ class InstitutionService(BaseService):
         self.db_module = self.dyanmic_module()
         super(InstitutionService)
 
-    def get_courses_and_modules(self, name):
+    def build_institution_json(self, name):
+        ''' Build a dictionary for all courses that an institution provides
+            content for
+        '''
         institutions = Institution.query.filter(
             Institution.name.ilike(name)).all()
         for institution in institutions:
             response = []
             for course in institution.courses.all():
-                response.append(self.build_institution_json(
+                response.append(self.json_institution_course_modules(
                     course, institution))
         return response
 
 
-    def build_institution_json(self, course, institution):
+    def json_institution_course_modules(self, course, institution):
         ''' Find all modules and courses offered to by a given institution and 
             build a JSON response
             

@@ -11,19 +11,6 @@ class ModuleService(BaseService):
         self.model = 'Module'
         self.db_module = self.dyanmic_module()
         super(ModuleService)
-
-
-    def add_many_to_many(self, parent, children, relationship):
-        ''' Build m-t-m records based on the relationship key
-        '''
-        self.many_to_many_map = {
-        'institutions': parent.institutions,
-        'users': parent.users,
-        }  
-        build_data = many_to_many_map.get(relationship)
-        for child in children:
-            build_data.append(child)
-        db.session.commit()
      
     def enrole(self, user_id, module_ids):
         ''' enrole a user to a module
@@ -40,3 +27,4 @@ class ModuleService(BaseService):
             return {'username': user.username, 'modules': module_names}
         except: 
             db.session.rollback()
+

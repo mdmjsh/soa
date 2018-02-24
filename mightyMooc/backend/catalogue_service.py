@@ -63,10 +63,10 @@ class CatalogueService(BaseService):
         :param: institution: string
         :returns: JSON response of courses and modules matching the institution
         '''
-        return self.institution_service.get_courses_and_modules(institution)
+        return self.institution_service.build_institution_json(institution)
 
 
-
+        
 
 
 

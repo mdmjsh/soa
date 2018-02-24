@@ -32,23 +32,39 @@ class BaseService():
     def __len__(self):
         return len(self.get())
 
-    def to_results(self):
+    def to_results(self, remove_keys=None):
         '''
         Iterate over the list of raw results.  
         Remove unwanted keys from the results.
         Append the cleaned results to a list of dicts. 
+        :param: remove_keys - custom list of additional keys remove
         '''
         REMOVE_KEYS = ['_sa_instance_state', 'deleted_at',
-         'created_at', 'updated_up']
+        'created_at', 'updated_up']
+        if remove_keys:
+            REMOVE_KEYS += remove_keys
         results = []
         for result_set in self.results:
             #  Make a copy as we are iterating the data we are mutating
             result_dict = copy.copy(vars(result_set)) 
             for remove_key in REMOVE_KEYS:
                 del result_dict[remove_key] 
-
             results.append(result_dict)
         return results
+
+    def add_many_to_many(self, parent, children, relationship):
+        ''' Build m-t-m records based on the relationship key
+        '''
+        many_to_many_map = {
+        'institutions': parent.institutions,
+        'users': parent.users,
+        'courses': parent.courses
+        }  
+        build_data = many_to_many_map.get(relationship)
+        for child in children:
+            build_data.append(child)
+        db.session.commit()
+        return build_data
 
 # # # CRUD METHODS # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
     
@@ -67,8 +83,7 @@ class BaseService():
         ''' Query model and return jsonified repsonse
         '''     
         self.results = self.db_module.query.filter_by(**kwargs).all() 
-        return make_response(jsonify({"status": "ok", "data": 
-            self.to_results()}), 200)
+        return {"status": "ok", "data": self.to_results()}
 
     def get_raw(self, **kwargs):
         ''' Returns raw, unjsonified db level data
@@ -77,8 +92,7 @@ class BaseService():
 
     def get_by_id(self, id):
         self.results = [self.db_module.query.filter_by(id=id).first()]
-        return make_response(jsonify({"status": "ok", "data": 
-            self.to_results()}), 200)
+        return {"status": "ok", "data": self.to_results()}
 
     def get_by_id_raw(self, id):
         return self.db_module.query.filter_by(id=id).first()
