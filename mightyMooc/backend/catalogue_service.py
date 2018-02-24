@@ -19,6 +19,11 @@ class CatalogueService(BaseService):
         self.module_service = ModuleService()
         self.institution_service = InstitutionService()
         self.course_service = CourseService()
+        self.CATALOGUE_ROUTER = {
+        'course': self.course_service,
+        'module': self.module_service, 
+        'institution': self.institution_service,
+        }
 
 ############ GET ##########################
 
@@ -26,14 +31,25 @@ class CatalogueService(BaseService):
         '''
         Returns a module, course, or institution by the given id
         '''
-        if kwargs.get('type') == 'course':
-            return self.course_service.get_by_id(kwargs.get('id'))
-        elif kwargs.get('type') == 'module': 
-            return self.module_service.get_by_id(kwargs.get('id'))
-        elif kwargs.get('type') == 'institution':
-            return self.institution_service.get_by_id(kwargs.get('id'))
-        else:
-            return({'error': '404 - {} resource not found'.format(kwargs.get('type'))})
+        # try:
+        service = self.CATALOGUE_ROUTER.get(kwargs['type'])
+        del(kwargs['type'])
+        return service.get(**kwargs)
+        # except:
+        #     return({'status': 'error', 'message': 'resource not found: {}'.
+        #         format(kwargs.get('type'))})
+
+
+    def get_by_id(self, **kwargs):
+        '''
+        Returns a module, course, or institution by the given id
+        '''
+        try:
+            service = self.CATALOGUE_ROUTER.get(kwargs['type'])
+            return service.get_by_id(kwargs.get('id'))
+        except:
+            return({'error': '404 - {} resource not found'.format(
+                kwargs.get('type'))})
 
     def get_tags(self, tag):
         '''
@@ -51,17 +67,6 @@ class CatalogueService(BaseService):
 
 
 
-
-
-
-
-    #by_user
-
-############# POST ##########################
-
-# enrole: user_id, course_id 
-# Update
-# upload modules
 
 
 

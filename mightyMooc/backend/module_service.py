@@ -13,7 +13,6 @@ class ModuleService(BaseService):
         super(ModuleService)
 
 
-
     def add_many_to_many(self, parent, children, relationship):
         ''' Build m-t-m records based on the relationship key
         '''

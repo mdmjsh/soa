@@ -10,13 +10,6 @@ from mightyMooc.backend.module_service import ModuleService
 from mightyMooc.backend.course_service import CourseService
 from mightyMooc.backend.institution_service import InstitutionService
 
-# @app.route('/catalogue')
-# def catalogue():
-#     return CatalogueService().get()
-
-# module_args = {
-#     'name': fields.Str(required=False)
-# }
 
 SERVICE_ROUTER = {
     'module': ModuleService(),
@@ -31,18 +24,19 @@ institution_service= InstitutionService()
 def module():
     if request.args:
         kwargs = request.args.to_dict()
-        return ModuleService().get(**kwargs)
+        return module_service.get(**kwargs)
     else: 
-        return ModuleService().get()
+        return module_service.get()
+
+@app.route('/institution/<string:name>', methods=['GET'])
+def institution(name):
+    return jsonify(institution_service.get_courses_and_modules(name))
 
 
 @app.route('/catalogue', methods=['GET'])
 def catalogue():
-    if request.args:
-        kwargs = request.args.to_dict()
-        return jsonify(CatalogueService().get(**kwargs))
-    else: 
-        pass  # This should fetch everything
+    kwargs = request.args.to_dict()
+    return catalogue_service.get(**kwargs)
 
 
 @app.route('/catalogue/tags/<string:tag>', methods=['GET'])
@@ -56,7 +50,6 @@ def get_by_institution(institution):
 
 @app.route('/catalogue/<string:type>/<int:id>', methods=['GET'])
 def get_by_id(type, id):
-    ipdb.set_trace()
     kwargs = request.args.to_dict()
     return jsonify(catalogue_service.get_by_id(**kwargs))
 
@@ -75,6 +68,14 @@ def add_content():
     service.add_many_to_many(result, institutions, 'institutions')
     return jsonify({'message': 'data added successfully', 'data': request_data,
      'status': 200})
+
+
+@app.route('/catalogue/<string:type>/<int:id>/<int:institution_id>', 
+    methods=['DELETE'])
+def soft_delete(type, id, institution_id):
+    ''' 
+    '''
+    service.soft_delete(type, id, institution_id)
 
 
 @app.route('/catalogue/enrole', 

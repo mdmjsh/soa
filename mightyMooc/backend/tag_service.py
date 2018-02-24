@@ -1,3 +1,4 @@
+import ipdb
 from flask_restful_swagger import swagger
 
 from mightyMooc import app, db
@@ -16,6 +17,8 @@ class TagService(BaseService):
         tags = Tag.query.filter(Tag.name.ilike(tag)).all()
         response = []
         for tag in tags: 
-            response.append({'tag': tag.name, 'modules': 
-                [m.name for m in tag.modules.all()]})
+            response.append({'tag': tag.name, 
+                'modules': [m.name for m in tag.modules.all()]})
         return response
+
+

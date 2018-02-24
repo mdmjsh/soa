@@ -44,14 +44,16 @@ class CourseService(BaseService):
         module_service.enrole(user_id, module_ids)
         try:
             db.session.commit()
-            return self.build_courses_json(user, course)
+            return self.build_enrolement_json(course, user)
         except: 
             db.session.rollback()
             return {'status': 500, 'message': 'Something went wrong'}
 
 
-    def build_courses_json(self, user, course):
-        ''' Used to construct JSON reponse 
+    def build_enrolement_json(self, course, user):
+        ''' Find all modules and courses subscribed to by a given user and 
+            build a JSON response
+            
             :param: user - mightyMooC models object 
             :param: course - mightyMooC models object 
         '''
@@ -60,23 +62,16 @@ class CourseService(BaseService):
             module_data.append(
                 {'id': module.id, 
                 'module': module.name, 
-                'description': module.description}
-            ) 
-
-        return {'username': user.username, 
+                'description': module.description,
+                'tags': [tag.name for tag in module.tags]}
+            )
+        response =  {
+                'user_name': user.username,
                 'course': course.name, 
                 'id': course.id,
                 'modules': module_data, 
         }
-
-
-
-
-
-
-
-
-
+        return response
 
 
 

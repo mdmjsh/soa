@@ -34,21 +34,20 @@ class BaseService():
 
     def to_results(self):
         '''
-        iterate over the list of objects results from original sqlalchemy call 
-        remove unwanted keys from the results
-        append the cleaned results to a list of dicts
+        Iterate over the list of raw results.  
+        Remove unwanted keys from the results.
+        Append the cleaned results to a list of dicts. 
         '''
-        REMOVE_KEYS = ['_sa_instance_state', 'deleted_at']
+        REMOVE_KEYS = ['_sa_instance_state', 'deleted_at',
+         'created_at', 'updated_up']
         results = []
         for result_set in self.results:
-            #  Make a copy as we are muting and iterating
+            #  Make a copy as we are iterating the data we are mutating
             result_dict = copy.copy(vars(result_set)) 
             for remove_key in REMOVE_KEYS:
                 del result_dict[remove_key] 
-            result_dict['created_at'] = str(result_dict['created_at'])
-            result_dict['updated_at'] = str(result_dict['created_at'])
+
             results.append(result_dict)
-        # results.append({'total': len(result_dict) if result_dict else 0})
         return results
 
 # # # CRUD METHODS # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -64,19 +63,22 @@ class BaseService():
             db.session.rollback()
             print('IntegrityError')
 
-    def get(self, **kwargs):        
+    def get(self, **kwargs): 
+        ''' Query model and return jsonified repsonse
+        '''     
         self.results = self.db_module.query.filter_by(**kwargs).all() 
         return make_response(jsonify({"status": "ok", "data": 
             self.to_results()}), 200)
 
     def get_raw(self, **kwargs):
-        ''' Returns raw data db level data not jsonified
+        ''' Returns raw, unjsonified db level data
         '''     
         return self.db_module.query.filter_by(**kwargs).all() 
 
     def get_by_id(self, id):
         self.results = [self.db_module.query.filter_by(id=id).first()]
-        return self.to_results()
+        return make_response(jsonify({"status": "ok", "data": 
+            self.to_results()}), 200)
 
     def get_by_id_raw(self, id):
         return self.db_module.query.filter_by(id=id).first()
@@ -97,10 +99,25 @@ class BaseService():
         db.session.delete(row)
 
 
+    def soft_delete(self, type, id, institution_id):
+        module = self.get_by_id(id)
+        if institution_id in module.institutions:
+            print('Soft deleting {}'.format(module))
+            db_module.update(self, id, {'deleted_at': datetime.now()})
+        else: 
+            print({'message': 'Forbidden', 'status': 403})
 
 
-
-
+    def check_publisher(self, content, institution):
+        '''
+            Check the publisher of a given module or course
+        ''' 
+        institutions = set()    
+        for content_owner in content.institutions.all():
+            institutions.add(content_owner.name)
+        if institution in institutions:  
+            return True          
+        return False
 
 
 
