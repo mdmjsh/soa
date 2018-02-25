@@ -31,13 +31,9 @@ class CatalogueService(BaseService):
         '''
         Returns a module, course, or institution by the given id
         '''
-        # try:
         service = self.CATALOGUE_ROUTER.get(kwargs['type'])
         del(kwargs['type'])
         return service.get(**kwargs)
-        # except:
-        #     return({'status': 'error', 'message': 'resource not found: {}'.
-        #         format(kwargs.get('type'))})
 
 
     def get_by_id(self, **kwargs):

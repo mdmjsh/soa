@@ -5,11 +5,13 @@ from webargs import fields
 from webargs.flaskparser import use_args
 
 from mightyMooc import app, db
+from mightyMooc.backend.catalogue_service import CatalogueService
 from mightyMooc.backend.module_service import ModuleService
 from mightyMooc.backend.course_service import CourseService
 from mightyMooc.backend.institution_service import InstitutionService
 from mightyMooc.backend.user_service import UserService
 
+catalogue_service = CatalogueService()
 course_service = CourseService()
 module_service= ModuleService()
 institution_service= InstitutionService()
@@ -40,29 +42,25 @@ def get_by_id(type, id):
     return jsonify(catalogue_service.get_by_id(**{'type': type, 'id': id}))
 
 
-@app.route('/catalogue/add', methods=['POST'])
+@app.route('/catalogue', methods=['POST', 'GET', 'DELETE'])
 def add_content():
     ''' Used to add a new module or course to the catalogue
     '''
     request_data = request.get_json()
     service = SERVICE_ROUTER.get(request_data.get('type'))
-    institutions = [institution_service.get_by_id_raw(request_data[
-        'institution_id'])]
-    ipdb.set_trace()
-    del(request_data['type'])
-    del(request_data['institution_id'])
-    result = service.create(**request_data)
-    service.add_many_to_many(result, institutions, 'institutions')
-    return jsonify({'message': 'data added successfully', 'data': request_data,
-     'status': 200})
-
-
-# @app.route('/catalogue/<string:type>/<int:id>/<int:institution_id>', 
-#     methods=['DELETE'])
-# def soft_delete(type, id, institution_id):
-#     ''' 
-#     '''
-#     service.soft_delete(type, id, institution_id)
+    if request.method == 'POST':
+        institutions = [institution_service.get_by_id_raw(request_data[
+            'institution_id'])]
+        del(request_data['type'])
+        del(request_data['institution_id'])
+        result = service.create(**request_data)
+        service.add_many_to_many(result, institutions, 'institutions')
+        return jsonify({'message': 'data added successfully', 'data': request_data,
+         'status': 200})
+    elif request.method == 'DELETE':
+        return jsonify(service.soft_delete(request_data['type'],
+                            request_data['id'], 
+                            request_data['institution_id']))
 
 
 @app.route('/catalogue/enrole', methods=['POST'])

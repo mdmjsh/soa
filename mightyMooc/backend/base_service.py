@@ -81,7 +81,8 @@ class BaseService():
 
     def get(self, **kwargs): 
         ''' Query model and return jsonified repsonse
-        '''     
+        '''  
+        kwargs['deleted_at'] = None   
         self.results = self.db_module.query.filter_by(**kwargs).all() 
         return {"status": "ok", "data": self.to_results()}
 
@@ -107,19 +108,32 @@ class BaseService():
 
     def delete(self, id):
         row = self.get_by_id(id)
-        print('Deleting {}'.format(row))
-        
+        print('Deleting {}'.format(row)) 
         User.query.filter(User.id == id).delete()
         db.session.delete(row)
 
 
-    def soft_delete(self, type, id, institution_id):
-        module = self.get_by_id(id)
-        if institution_id in module.institutions:
+    def soft_delete(self, type, id, requestor_id):
+        ''' Soft delete an item by setting its deleted at timestamp. 
+            If the requestor_id does not have permission for the deletion 
+            a 403 will be raised
+            :param: type - type of item to delete 
+            :param: id - id of item to delete
+            :param: requestor_id - id party requesting the deletion
+        '''
+
+        module = self.get_by_id_raw(id)
+
+        approved = [m.id for m in module.institutions.all()]
+        if requestor_id in approved:
             print('Soft deleting {}'.format(module))
-            db_module.update(self, id, {'deleted_at': datetime.now()})
+            module.deleted_at = datetime.now()
+            db.session.merge(module)
+            return{' message': '{}: {} requested for deletion. Our \
+            administrators will get back to you to confirm shortly.'.
+            format(type, module.name)}
         else: 
-            print({'message': 'Forbidden', 'status': 403})
+            return{'message': 'Forbidden', 'status': 403}
 
 
     def check_publisher(self, content, institution):

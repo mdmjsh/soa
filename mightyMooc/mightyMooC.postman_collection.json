@@ -1,0 +1,360 @@
+{
+	"info": {
+		"name": "mightyMooC",
+		"_postman_id": "a75eb85d-6036-16b0-6fa5-73398e510628",
+		"description": "Url Testing suit for mightMooC",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://127.0.0.1:5000/catalogue/add",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"type\": \"module\",\n\t\"user_id\": 2,\n\t\"content_ids\": [2,3,4,5]\n}\n"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/catalogue/enrole",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"catalogue",
+						"enrole"
+					]
+				},
+				"description": "Adding module description through the catalouge service"
+			},
+			"response": []
+		},
+		{
+			"name": "",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/catalogue/add",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "cache-control",
+						"value": "no-cache"
+					},
+					{
+						"key": "connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "content-length",
+						"value": "105"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "host",
+						"value": "127.0.0.1:5000"
+					},
+					{
+						"key": "postman-token",
+						"value": "88a3dddb-b9c0-404c-8aeb-3b91c49a4301"
+					},
+					{
+						"key": "user-agent",
+						"value": "PostmanRuntime/6.4.1"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t'user_id': 2,\n\t'content_ids': [2,5,6,7]\n\t'type': 'module'\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/catalogue/enrole",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"catalogue",
+						"enrole"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/catalogue/add",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "cache-control",
+						"value": "no-cache"
+					},
+					{
+						"key": "connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "content-length",
+						"value": "105"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "host",
+						"value": "127.0.0.1:5000"
+					},
+					{
+						"key": "postman-token",
+						"value": "4def9586-abab-4274-af46-1fffdd26a2a0"
+					},
+					{
+						"key": "user-agent",
+						"value": "PostmanRuntime/6.4.1"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"type\": \"module\",\n\t\"name\": \"Clustering\",\n\t\"institution_id\": 2,\n\t\"description\": \"Data minning and clustering algorithms\",\n\t\"tags\": [\"data science\"]\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/catalogue/add",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"catalogue",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/catalogue/add",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "cache-control",
+						"value": "no-cache"
+					},
+					{
+						"key": "connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "content-length",
+						"value": "105"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "host",
+						"value": "127.0.0.1:5000"
+					},
+					{
+						"key": "postman-token",
+						"value": "d98baafc-ddfa-49c6-958c-50e76098c2bd"
+					},
+					{
+						"key": "user-agent",
+						"value": "PostmanRuntime/6.4.1"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"type\": \"module\",\n\t\"name\": \"fancy\",\n\t\"institution_id\": 2,\n\t\"description\": \"shit's getting real\"\n}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/catalogue/add",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"catalogue",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/catalogue/add",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "cache-control",
+						"value": "no-cache"
+					},
+					{
+						"key": "connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "content-length",
+						"value": "105"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "host:127.0.0.1",
+						"value": "5000"
+					},
+					{
+						"key": "postman-token",
+						"value": "26090dc8-d9a8-4872-9e78-4b684ad7d2f5"
+					},
+					{
+						"key": "user-agent",
+						"value": "PostmanRuntime/6.4.1"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"type\": \"module\",\n\t\"name\": \"fancy ting\",\n\t\"institution_id\": 2,\n\t\"description\": \"shit's getting real\"\n}"
+				},
+				"url": {
+					"raw": "/catalogue/add",
+					"path": [
+						"catalogue",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/catalogue/add",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accept",
+						"value": "*/*"
+					},
+					{
+						"key": "accept-encoding",
+						"value": "gzip, deflate"
+					},
+					{
+						"key": "cache-control",
+						"value": "no-cache"
+					},
+					{
+						"key": "connection",
+						"value": "keep-alive"
+					},
+					{
+						"key": "content-length",
+						"value": "105"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "host:127.0.0.1",
+						"value": "5000"
+					},
+					{
+						"key": "postman-token",
+						"value": "b0652d71-98e3-4dcc-b877-97c4674bb167"
+					},
+					{
+						"key": "user-agent",
+						"value": "PostmanRuntime/6.4.1"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"type\": \"module\",\n\t\"name\": \"fancy ting\",\n\t\"institution_id\": 2,\n\t\"description\": \"shit's getting real\"\n}"
+				},
+				"url": {
+					"raw": "/catalogue/add",
+					"path": [
+						"catalogue",
+						"add"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
