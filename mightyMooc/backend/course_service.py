@@ -14,25 +14,9 @@ class CourseService(BaseService):
         super(CourseService)
 
 
-    def add_many_to_many(self, parent, children, relationship):
-        ''' Build m-t-m records based on the relationship key
-        :param: parent - mightyMooc.models object 
-        :param: child - mightyMooc.models object 
-        :param: relationship(str) - string of the relationship
-        '''
-        self.many_to_many_map = {
-        'institutions': parent.institutions,
-        'modules': parent.modules,
-        'users': parent.users,
-        }  
-        build_data = many_to_many_map.get(relationship)
-        for child in children:
-            build_data.append(child)
-        db.session.commit()
-
-    def enrole(self, user_id, course_id):
-        ''' enrole a user to a course
-            cascades to enrole them on every module in the course
+    def enrol(self, user_id, course_id):
+        ''' enrol a user to a course
+            cascades to enrol them on every module in the course
 
             Currently built for one course id (even though a list)
             easily extendable to use multiple.
@@ -41,16 +25,15 @@ class CourseService(BaseService):
         course = self.get_by_id_raw(course_id[0])
         module_ids = [module.id for module in course.modules]
         user.courses.append(course)
-        module_service.enrole(user_id, module_ids)
+        module_service.enrol(user_id, module_ids)
         try:
             db.session.commit()
-            return self.build_enrolement_json(course, user)
+            return self.build_enrollment_json(course, user)
         except: 
             db.session.rollback()
-            return {'status': 500, 'message': 'Something went wrong'}
 
 
-    def build_enrolement_json(self, course, user):
+    def build_enrollment_json(self, course, user):
         ''' Find all modules and courses subscribed to by a given user and 
             build a JSON response
             

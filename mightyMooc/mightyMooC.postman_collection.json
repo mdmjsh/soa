@@ -21,7 +21,7 @@
 					"raw": "{\n\t\"type\": \"module\",\n\t\"user_id\": 2,\n\t\"content_ids\": [2,3,4,5]\n}\n"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/catalogue/enrole",
+					"raw": "http://127.0.0.1:5000/catalogue/enrol",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -32,7 +32,7 @@
 					"port": "5000",
 					"path": [
 						"catalogue",
-						"enrole"
+						"enrol"
 					]
 				},
 				"description": "Adding module description through the catalouge service"
@@ -99,7 +99,7 @@
 					"raw": "{\n\t'user_id': 2,\n\t'content_ids': [2,5,6,7]\n\t'type': 'module'\n}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:5000/catalogue/enrole",
+					"raw": "http://127.0.0.1:5000/catalogue/enrol",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -110,7 +110,7 @@
 					"port": "5000",
 					"path": [
 						"catalogue",
-						"enrole"
+						"enrol"
 					]
 				}
 			},

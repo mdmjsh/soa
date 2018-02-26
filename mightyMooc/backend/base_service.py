@@ -7,7 +7,7 @@ from datetime import datetime
 from sqlite3 import IntegrityError
 from sqlalchemy import exc
 from mightyMooc import app, db
-from flask import jsonify, request, make_response
+from flask import jsonify, request, make_response, abort
 import ipdb
 
 class BaseService():
@@ -37,6 +37,7 @@ class BaseService():
         Iterate over the list of raw results.  
         Remove unwanted keys from the results.
         Append the cleaned results to a list of dicts. 
+
         :param: remove_keys - custom list of additional keys remove
         '''
         REMOVE_KEYS = ['_sa_instance_state', 'deleted_at',
@@ -65,6 +66,7 @@ class BaseService():
             build_data.append(child)
         db.session.commit()
         return build_data
+
 
 # # # CRUD METHODS # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
     
@@ -113,44 +115,30 @@ class BaseService():
         db.session.delete(row)
 
 
-    def soft_delete(self, type, id, requestor_id):
+    def soft_delete(self, type, id, requestor_id, deleted_by):
         ''' Soft delete an item by setting its deleted at timestamp. 
             If the requestor_id does not have permission for the deletion 
             a 403 will be raised
             :param: type - type of item to delete 
             :param: id - id of item to delete
             :param: requestor_id - id party requesting the deletion
+                e.g. 'modules'
+            :param: deleted_by: str - string of the type of user attempting to 
+                    make the soft delete. e.g. 'institution / 'student'
         '''
-
-        module = self.get_by_id_raw(id)
-
-        approved = [m.id for m in module.institutions.all()]
+        to_delete = self.get_by_id_raw(id)
+        delete_dict = {'student': to_delete.users.all(), 
+                       'institution': to_delete.institutions.all(), 
+        }
+        approved = [m.id for m in to_delete.users.all()]
         if requestor_id in approved:
-            print('Soft deleting {}'.format(module))
-            module.deleted_at = datetime.now()
-            db.session.merge(module)
-            return{' message': '{}: {} requested for deletion. Our \
-            administrators will get back to you to confirm shortly.'.
-            format(type, module.name)}
+            print('Soft deleting {}'.format(to_delete.name))
+            to_delete.deleted_at = datetime.now()
+            db.session.merge(to_delete)
+            return{'status': 200, 'to_delete': to_delete.name, 
+                    'message': 'Our administrators will get back to you shortly'}
         else: 
-            return{'message': 'Forbidden', 'status': 403}
-
-
-    def check_publisher(self, content, institution):
-        '''
-            Check the publisher of a given module or course
-        ''' 
-        institutions = set()    
-        for content_owner in content.institutions.all():
-            institutions.add(content_owner.name)
-        if institution in institutions:  
-            return True          
-        return False
-
-
-
-
-
+            abort(403)
 
 
 

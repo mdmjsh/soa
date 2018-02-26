@@ -1,0 +1,1172 @@
+{
+	"info": {
+		"name": "mightyMooc_testing",
+		"_postman_id": "b2a24390-7c0d-61fb-2ad3-ebff76939816",
+		"description": "Final testing collection for mightyMooC endpoints ",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://127.0.0.1:5000/catalogue/tags/programming",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://127.0.0.1:5000/catalogue/tags/programming",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"catalogue",
+						"tags",
+						"programming"
+					]
+				},
+				"description": "Search for modules matching the given tag. "
+			},
+			"response": [
+				{
+					"id": "85dd9665-925e-4fef-8458-48be37f4d4ff",
+					"name": "http://127.0.0.1:5000/catalogue/tags/programming",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://127.0.0.1:5000/catalogue/tags/programming",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"catalogue",
+								"tags",
+								"programming"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "222",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 26 Feb 2018 21:59:20 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/0.14.1 Python/3.6.3",
+							"name": "Server",
+							"description": "A name for the server"
+						}
+					],
+					"cookie": [],
+					"responseTime": 6,
+					"body": "[\n  {\n    \"modules\": [\n      \"OOP\", \n      \"Understanding Data structures\", \n      \"Advanced data analytics with Python\", \n      \"Memory Optimization\", \n      \"Testing and debugging\"\n    ], \n    \"tag\": \"Programming\"\n  }\n]\n"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/catalogue/institutions/oxford",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://127.0.0.1:5000/catalogue/institutions/oxford",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"catalogue",
+						"institutions",
+						"oxford"
+					]
+				},
+				"description": "Search for institution by name and list all content offered by that institution."
+			},
+			"response": [
+				{
+					"id": "d192c703-8180-49c0-9a6d-6fb659409aaf",
+					"name": "http://127.0.0.1:5000/catalogue/institutions/oxford",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://127.0.0.1:5000/catalogue/institutions/oxford",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"catalogue",
+								"institutions",
+								"oxford"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "1609",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 26 Feb 2018 21:59:15 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/0.14.1 Python/3.6.3",
+							"name": "Server",
+							"description": "A name for the server"
+						}
+					],
+					"cookie": [],
+					"responseTime": 26,
+					"body": "[\n  {\n    \"course\": \"Programming Fundamentals\", \n    \"id\": 1, \n    \"modules\": [\n      {\n        \"description\": null, \n        \"id\": 1, \n        \"module\": \"OOP\", \n        \"tags\": [\n          \"Programming\"\n        ]\n      }, \n      {\n        \"description\": null, \n        \"id\": 3, \n        \"module\": \"Databases\", \n        \"tags\": [\n          \"SQL\", \n          \"Relational Database Management Systems\"\n        ]\n      }, \n      {\n        \"description\": null, \n        \"id\": 4, \n        \"module\": \"Understanding Data structures\", \n        \"tags\": [\n          \"Programming\"\n        ]\n      }, \n      {\n        \"description\": null, \n        \"id\": 6, \n        \"module\": \"Testing and debugging\", \n        \"tags\": [\n          \"Programming\"\n        ]\n      }\n    ]\n  }, \n  {\n    \"course\": \"Programming for Data Science\", \n    \"id\": 2, \n    \"modules\": [\n      {\n        \"description\": null, \n        \"id\": 11, \n        \"module\": \"Timeseries Analysis with Spark\", \n        \"tags\": [\n          \"Spark\", \n          \"Big data technologies\"\n        ]\n      }, \n      {\n        \"description\": null, \n        \"id\": 12, \n        \"module\": \"Machine Learning\", \n        \"tags\": [\n          \"Big data technologies\", \n          \"python\"\n        ]\n      }, \n      {\n        \"description\": null, \n        \"id\": 3, \n        \"module\": \"Databases\", \n        \"tags\": [\n          \"SQL\", \n          \"Relational Database Management Systems\"\n        ]\n      }, \n      {\n        \"description\": null, \n        \"id\": 4, \n        \"module\": \"Understanding Data structures\", \n        \"tags\": [\n          \"Programming\"\n        ]\n      }\n    ]\n  }\n]\n"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/catalogue/?type=institution",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://127.0.0.1:5000/catalogue?type=institution",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"catalogue"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "institution",
+							"equals": true
+						}
+					]
+				},
+				"description": "list institutions"
+			},
+			"response": [
+				{
+					"id": "a54418e3-f4b4-40ec-b8d4-ecb19ccfdf10",
+					"name": "http://127.0.0.1:5000/catalogue/?type=institution",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://127.0.0.1:5000/catalogue?type=institution",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"catalogue"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "institution",
+									"equals": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "309",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 26 Feb 2018 21:59:09 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/0.14.1 Python/3.6.3",
+							"name": "Server",
+							"description": "A name for the server"
+						}
+					],
+					"cookie": [],
+					"responseTime": 11,
+					"body": "{\n  \"data\": [\n    {\n      \"id\": 1, \n      \"name\": \"Oxford\"\n    }, \n    {\n      \"id\": 2, \n      \"name\": \"Cambridge\"\n    }, \n    {\n      \"id\": 3, \n      \"name\": \"Imperial\"\n    }, \n    {\n      \"id\": 4, \n      \"name\": \"Cardiff\"\n    }, \n    {\n      \"id\": 5, \n      \"name\": \"Bristol\"\n    }\n  ], \n  \"status\": \"ok\"\n}\n"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/catalogue/students/2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://127.0.0.1:5000/catalogue/students/2",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"catalogue",
+						"students",
+						"2"
+					]
+				},
+				"description": "List enrolled subjects by student_id"
+			},
+			"response": [
+				{
+					"id": "189ff1d4-aeb2-4b63-a950-b7c09a4a72dc",
+					"name": "http://127.0.0.1:5000/catalogue/students/2",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://127.0.0.1:5000/catalogue/students/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"catalogue",
+								"students",
+								"2"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "531",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 26 Feb 2018 21:59:03 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/0.14.1 Python/3.6.3",
+							"name": "Server",
+							"description": "A name for the server"
+						}
+					],
+					"cookie": [],
+					"responseTime": 24,
+					"body": "{\n  \"data\": [\n    {\n      \"courses\": [\n        \"Programming for Data Science\"\n      ], \n      \"firstname\": null, \n      \"id\": 2, \n      \"lastname\": null, \n      \"modules\": [\n        \"UI/UX Design\", \n        \"Probabilistic Graphical Models\", \n        \"Databases\", \n        \"Natural Language Processing\", \n        \"Timeseries Analysis with Spark\", \n        \"Advanced data analytics with Python\", \n        \"Understanding Data structures\", \n        \"Machine Learning\"\n      ], \n      \"username\": \"Clare\"\n    }\n  ], \n  \"status\": \"ok\"\n}\n"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/catalogue/enrole",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r \"type\": \"module\",\r \"user_id\": 3,\r \"content_ids\": [2]\r}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/catalogue/enrol",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"catalogue",
+						"enrol"
+					]
+				},
+				"description": "Enrole a student on an individual module."
+			},
+			"response": [
+				{
+					"id": "225d4459-0173-44ec-940c-75d141b443e8",
+					"name": "http://127.0.0.1:5000/catalogue/enrole",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r \"type\": \"module\",\r \"user_id\": 3,\r \"content_ids\": [2]\r}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/catalogue/enrol",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"catalogue",
+								"enrol"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "148",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 26 Feb 2018 21:25:59 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/0.14.1 Python/3.6.3",
+							"name": "Server",
+							"description": "A name for the server"
+						}
+					],
+					"cookie": [],
+					"responseTime": 24,
+					"body": "{\n  \"data\": {\n    \"modules\": [\n      \"UI/UX Design\"\n    ], \n    \"username\": \"Mark\"\n  }, \n  \"message\": \"data added successfully\", \n  \"status\": 200\n}\n"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/catalogue/enrole",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r \"type\": \"course\",\r \"user_id\": 4,\r \"content_ids\": [2]\r}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/catalogue/enrol",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"catalogue",
+						"enrol"
+					]
+				},
+				"description": "Enrole a student on a course and all of the modules of that course."
+			},
+			"response": [
+				{
+					"id": "29dd44cc-f228-4c7a-9e7b-706858766016",
+					"name": "http://127.0.0.1:5000/catalogue/enrole",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r \"type\": \"course\",\r \"user_id\": 4,\r \"content_ids\": [2]\r}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/catalogue/enrol",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"catalogue",
+								"enrol"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "1524",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 26 Feb 2018 21:58:24 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/0.14.1 Python/3.6.3",
+							"name": "Server",
+							"description": "A name for the server"
+						}
+					],
+					"cookie": [],
+					"responseTime": 45,
+					"body": "{\n  \"data\": {\n    \"course\": \"Programming for Data Science\", \n    \"id\": 2, \n    \"modules\": [\n      {\n        \"description\": null, \n        \"id\": 8, \n        \"module\": \"Probabilistic Graphical Models\", \n        \"tags\": [\n          \"Probabality\"\n        ]\n      }, \n      {\n        \"description\": null, \n        \"id\": 9, \n        \"module\": \"Advanced data analytics with Python\", \n        \"tags\": [\n          \"python\", \n          \"Programming\", \n          \"Data analytics\"\n        ]\n      }, \n      {\n        \"description\": null, \n        \"id\": 10, \n        \"module\": \"Natural Language Processing\", \n        \"tags\": [\n          \"NLP\", \n          \"python\"\n        ]\n      }, \n      {\n        \"description\": null, \n        \"id\": 11, \n        \"module\": \"Timeseries Analysis with Spark\", \n        \"tags\": [\n          \"Spark\", \n          \"Big data technologies\"\n        ]\n      }, \n      {\n        \"description\": null, \n        \"id\": 12, \n        \"module\": \"Machine Learning\", \n        \"tags\": [\n          \"Big data technologies\", \n          \"python\"\n        ]\n      }, \n      {\n        \"description\": null, \n        \"id\": 3, \n        \"module\": \"Databases\", \n        \"tags\": [\n          \"SQL\", \n          \"Relational Database Management Systems\"\n        ]\n      }, \n      {\n        \"description\": null, \n        \"id\": 4, \n        \"module\": \"Understanding Data structures\", \n        \"tags\": [\n          \"Programming\"\n        ]\n      }\n    ], \n    \"user_name\": \"Nasser\"\n  }, \n  \"message\": \"data added successfully\", \n  \"status\": 200\n}\n"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/catalogue",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r \"type\": \"module\",\r \"name\": \"SOA\",\r \"institution_id\": 2\r}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/catalogue",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"catalogue"
+					]
+				},
+				"description": "Add a new module to the Catelogue. "
+			},
+			"response": [
+				{
+					"id": "bf5fdef8-c03d-4c14-b0f0-ed0992fe8af0",
+					"name": "http://127.0.0.1:5000/catalogue",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r \"type\": \"module\",\r \"name\": \"SOA\",\r \"institution_id\": 2\r}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/catalogue",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"catalogue"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "97",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 26 Feb 2018 21:58:14 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/0.14.1 Python/3.6.3",
+							"name": "Server",
+							"description": "A name for the server"
+						}
+					],
+					"cookie": [],
+					"responseTime": 64,
+					"body": "{\n  \"data\": {\n    \"name\": \"SOA\"\n  }, \n  \"message\": \"data added successfully\", \n  \"status\": 200\n}\n"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/catalogue?type=course&id=1",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r \"type\": \"module\",\r \"id\": 2,\r \"institution_id\": 2\r}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/catalogue?type=course&id=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"catalogue"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "course",
+							"equals": true
+						},
+						{
+							"key": "id",
+							"value": "1",
+							"equals": true
+						}
+					]
+				},
+				"description": "Get catalogue data by its type and ID. \nAccepted types: 'module', 'course', 'institution'"
+			},
+			"response": [
+				{
+					"id": "13c3812c-fd14-4714-8fe9-3c9235fa960f",
+					"name": "http://127.0.0.1:5000/catalogue?type=course&id=1",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r \"type\": \"module\",\r \"id\": 2,\r \"institution_id\": 2\r}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/catalogue?type=course&id=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"catalogue"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "course",
+									"equals": true
+								},
+								{
+									"key": "id",
+									"value": "1",
+									"equals": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "187",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 26 Feb 2018 21:38:26 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/0.14.1 Python/3.6.3",
+							"name": "Server",
+							"description": "A name for the server"
+						}
+					],
+					"cookie": [],
+					"responseTime": 7,
+					"body": "{\n  \"data\": [\n    {\n      \"description\": \"An introduction to programming.\", \n      \"id\": 1, \n      \"level\": null, \n      \"name\": \"Programming Fundamentals\"\n    }\n  ], \n  \"status\": \"ok\"\n}\n"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/catalogue",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r \"type\": \"module\",\r \"id\": 2,\r \"institution_id\": 2\r}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/catalogue",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"catalogue"
+					]
+				},
+				"description": "Institution request to delete a module."
+			},
+			"response": [
+				{
+					"id": "d9326ea0-0c55-4042-ab79-bdf29340476a",
+					"name": "http://127.0.0.1:5000/catalogue",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r \"type\": \"module\",\r \"id\": 2,\r \"institution_id\": 2\r}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/catalogue",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"catalogue"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "117",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 26 Feb 2018 21:32:02 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/0.14.1 Python/3.6.3",
+							"name": "Server",
+							"description": "A name for the server"
+						}
+					],
+					"cookie": [],
+					"responseTime": 19,
+					"body": "{\n  \"message\": \"Our administrators will get back to you shortly\", \n  \"status\": 200, \n  \"to_delete\": \"UI/UX Design\"\n}\n"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/catalogue?type=course&id=1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://127.0.0.1:5000/catalogue?type=course&id=1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"catalogue"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "course",
+							"equals": true
+						},
+						{
+							"key": "id",
+							"value": "1",
+							"equals": true
+						}
+					]
+				},
+				"description": "get by id"
+			},
+			"response": [
+				{
+					"id": "6b71d3b6-10e0-43d3-9d42-e1ace3dc7ad9",
+					"name": "http://127.0.0.1:5000/catalogue?type=course&id=1",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://127.0.0.1:5000/catalogue?type=course&id=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"catalogue"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "course",
+									"equals": true
+								},
+								{
+									"key": "id",
+									"value": "1",
+									"equals": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "187",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 26 Feb 2018 21:55:50 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/0.14.1 Python/3.6.3",
+							"name": "Server",
+							"description": "A name for the server"
+						}
+					],
+					"cookie": [],
+					"responseTime": 14,
+					"body": "{\n  \"data\": [\n    {\n      \"description\": \"An introduction to programming.\", \n      \"id\": 1, \n      \"level\": null, \n      \"name\": \"Programming Fundamentals\"\n    }\n  ], \n  \"status\": \"ok\"\n}\n"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/catalogue/enrole",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r \"type\": \"module\",\r \"user_id\": 2,\r \"content_ids\": [2]\r}"
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/catalogue/enrol",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"catalogue",
+						"enrol"
+					]
+				},
+				"description": "Remove a student from an enroled on a module."
+			},
+			"response": [
+				{
+					"id": "c6d2d3d0-33eb-4454-b8a2-6b97f66fa51a",
+					"name": "http://127.0.0.1:5000/catalogue/enrole",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r \"type\": \"module\",\r \"user_id\": 2,\r \"content_ids\": [2]\r}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:5000/catalogue/enrol",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"catalogue",
+								"enrol"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "143",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 26 Feb 2018 21:55:39 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/0.14.1 Python/3.6.3",
+							"name": "Server",
+							"description": "A name for the server"
+						}
+					],
+					"cookie": [],
+					"responseTime": 31,
+					"body": "{\n  \"message\": \"You have successfully cancelled your enrollment on the UI/UX Design module\", \n  \"status\": 200, \n  \"to_delete\": \"UI/UX Design\"\n}\n"
+				}
+			]
+		},
+		{
+			"name": "http://127.0.0.1:5000/catalogue?type=institution",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://127.0.0.1:5000/catalogue?type=institution",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"catalogue"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "institution",
+							"equals": true
+						}
+					]
+				},
+				"description": "List all Catalogue items by type. \nAccepeted types: 'module', 'course', 'institution'"
+			},
+			"response": [
+				{
+					"id": "4cecdf41-0c2e-4302-a143-d4774a5c607a",
+					"name": "http://127.0.0.1:5000/catalogue?type=institution",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"url": {
+							"raw": "http://127.0.0.1:5000/catalogue?type=institution",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "5000",
+							"path": [
+								"catalogue"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "institution",
+									"equals": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"_postman_previewtype": "text",
+					"header": [
+						{
+							"key": "Content-Length",
+							"value": "309",
+							"name": "Content-Length",
+							"description": "The length of the response body in octets (8-bit bytes)"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "The mime type of this content"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 26 Feb 2018 21:53:58 GMT",
+							"name": "Date",
+							"description": "The date and time that the message was sent"
+						},
+						{
+							"key": "Server",
+							"value": "Werkzeug/0.14.1 Python/3.6.3",
+							"name": "Server",
+							"description": "A name for the server"
+						}
+					],
+					"cookie": [],
+					"responseTime": 22,
+					"body": "{\n  \"data\": [\n    {\n      \"id\": 1, \n      \"name\": \"Oxford\"\n    }, \n    {\n      \"id\": 2, \n      \"name\": \"Cambridge\"\n    }, \n    {\n      \"id\": 3, \n      \"name\": \"Imperial\"\n    }, \n    {\n      \"id\": 4, \n      \"name\": \"Cardiff\"\n    }, \n    {\n      \"id\": 5, \n      \"name\": \"Bristol\"\n    }\n  ], \n  \"status\": \"ok\"\n}\n"
+				}
+			]
+		}
+	]
+}

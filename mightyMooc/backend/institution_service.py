@@ -49,6 +49,16 @@ class InstitutionService(BaseService):
         }
         return response
 
+    def check_publisher(self, content, institution):
+        '''
+            Check the publisher of a given module or course
+        ''' 
+        institutions = set()    
+        for content_owner in content.institutions.all():
+            institutions.add(content_owner.name)
+        if institution in institutions:  
+            return True          
+        return False
 
 
 

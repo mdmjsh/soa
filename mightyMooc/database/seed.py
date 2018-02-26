@@ -15,11 +15,11 @@ class RunSeed():
         course_service = CourseService()
         module_service = ModuleService()
         tag_service = TagService()
-        users =[{'username': 'Michael Vaughn', 'email': 'mv@ecb.co.uk'},
-        {'username': 'Marcus Trescothic', 'email': 'mt@ecb.co.uk'}, 
-        {'username': 'Mark Butcher', 'email': 'mb@ecb.co.uk' },
-        {'username': 'Nasser Hussain', 'email': 'nh@ecb.co.uk'},
-        {'username': 'Alec Stuart', 'email': 'as@ecb.co.uk'}]
+        users =[{'username': 'John', 'email': 'john@example.com'},
+        {'username': 'Clare', 'email': 'clare@example.com'}, 
+        {'username': 'Mark', 'email': 'mark@example.com' },
+        {'username': 'Nasser', 'email': 'nasser@example.com'},
+        {'username': 'Fiona', 'email': 'fiona@example.com'}]
         self.generate(users, UserService, 'User')
 
         institutions =[{'name': 'Oxford'},
@@ -30,8 +30,7 @@ class RunSeed():
         self.generate(institutions, InstitutionService, 'Institution')
 
         courses =[{'name': 'Programming Fundamentals', 'description': 'An introduction to programming.'},
-        {'name': 'Programming for Data Science', 'description': 'Covers some of the mathmatical and \
-         programmatic principles required for by modern data science.'}]
+        {'name': 'Programming for Data Science', 'description': 'Covers some of the mathmatical and programmatic principles required for by modern data science.'}]
         self.generate(courses, CourseService, 'Course')
 
 
@@ -151,7 +150,7 @@ class RunSeed():
         ml.tags.append(python)
 
 
-################### M-2-M module_institutions ######################################
+################### M-2-M module_institutions ################################
 
         oop.institutions.append(oxford)
         oop.institutions.append(imperial)

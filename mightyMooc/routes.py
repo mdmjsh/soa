@@ -55,30 +55,46 @@ def add_content():
         del(request_data['institution_id'])
         result = service.create(**request_data)
         service.add_many_to_many(result, institutions, 'institutions')
-        return jsonify({'message': 'data added successfully', 'data': request_data,
-         'status': 200})
+        return jsonify({'message': 'data added successfully', 
+                        'data': request_data,
+                        'status': 200})
     elif request.method == 'DELETE':
         return jsonify(service.soft_delete(request_data['type'],
                             request_data['id'], 
-                            request_data['institution_id']))
+                            request_data['institution_id'], 
+                            'institutions'))
 
 
-@app.route('/catalogue/enrole', methods=['POST'])
-def enrolement():
-    '''  Used to enrole a user on a module or course
+@app.route('/catalogue/enrol', methods=['POST', 'DELETE'])
+def enrollment():
+    '''  Used to enrol a user on a module or course
         :param: content_id - maps to a module or course depending on type param
         :param: type - string - 'module' or 'course' 
     '''
     request_data = request.get_json()
     service = SERVICE_ROUTER.get(request_data.get('type'))
-    response = service.enrole(request_data['user_id'], 
-        request_data['content_ids'])
-    return jsonify({'message': 'data added successfully', 'data': response,
-     'status': 200})
+    if request.method == 'POST':
+        response = service.enrol(request_data['user_id'], 
+            request_data['content_ids'])
+        return jsonify({'message': 'data added successfully', 'data': response,
+         'status': 200})
+    
+    elif request.method == 'DELETE':
+        for content_id in request_data['content_ids']:
+            delete_response = service.soft_delete(request_data['type'],
+                            content_id, 
+                            request_data['user_id'], 
+                            'student') 
+            delete_response['message'] = 'You have successfully cancelled your enrollment on the {} {}'.\
+            format(delete_response['to_delete'], 
+                request_data['type'])
+        return jsonify(delete_response)
+
+
 
 @app.route('/catalogue/students/<int:id>', methods=['GET'])
 def student(id):
-    ''' Fetch a users enrolements 
+    ''' Fetch a users enrollments 
     '''
     return jsonify(user_service.get_by_id(id))
 

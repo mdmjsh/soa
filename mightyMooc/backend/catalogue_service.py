@@ -1,5 +1,5 @@
 import ipdb
-from flask_restful_swagger import swagger
+from flask import abort
 
 from mightyMooc import app, db
 from mightyMooc.backend.base_service import BaseService
@@ -12,7 +12,7 @@ class CatalogueService(BaseService):
     '''
         A service for querying the whole mightyMooC catalogue
         adding module/course content, and 
-        for students to enrole on modules/courses
+        for students to enrol on modules/courses
     '''
     def __init__(self):
         self.tag_service = TagService()
@@ -44,8 +44,7 @@ class CatalogueService(BaseService):
             service = self.CATALOGUE_ROUTER.get(kwargs['type'])
             return service.get_by_id(kwargs.get('id'))
         except:
-            return({'error': '404 - {} resource not found'.format(
-                kwargs.get('type'))})
+            abort(404)
 
     def get_tags(self, tag):
         '''
