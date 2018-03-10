@@ -8,7 +8,7 @@ from sqlite3 import IntegrityError
 from sqlalchemy import exc
 from mightyMooc import app, db
 from flask import jsonify, request, make_response, abort
-import ipdb
+
 
 class BaseService():
 
